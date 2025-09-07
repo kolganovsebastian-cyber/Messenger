@@ -66,7 +66,7 @@ def check_client(socket_client):
 
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.bind(("127.0.0.1", 8100))
+socket.bind(("0.0.0.0", 8100))
 socket.listen()
 
 

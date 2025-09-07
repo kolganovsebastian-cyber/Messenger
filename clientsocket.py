@@ -21,7 +21,7 @@ def send_user_to_chat(socket):
 
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.connect(("127.0.0.1", 8100))
+socket.connect(("62.60.178.229", 8100))
 for a in range(1, 4):
     try:
         file = open("cookies.json", "r", encoding="utf-8")
