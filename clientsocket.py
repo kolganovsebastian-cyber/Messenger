@@ -3,14 +3,15 @@ import threading
 import messaging_protocol as mp
 import json
 import datetime
+import time
 
 
 def receive_messages():
     while True:
-        message = socket.recv(1024)
-        if message == b"":
+        message = mp.recv_information(socket)[1]
+        if message == "Ok Exit":
             break
-        print(message.decode())
+        print(message)
 
 
 def send_user_to_chat(socket):
@@ -62,8 +63,9 @@ while True:
 
     while True:
         message_sent = input("")
-        if message_sent == "exit":
-            break
         mp.send_text(socket, message_sent)
+        if message_sent == "exit":
+            time.sleep(0.5)
+            break
 
 socket.close()

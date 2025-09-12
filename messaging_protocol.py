@@ -19,7 +19,7 @@ def _get_information(sock: socket.socket, size: int) -> bytes:
 
 
 def recv_information(sock: socket.socket) -> list:
-    header = _get_information(sock, HEADERSIZE).decode()
+    header = _get_information(sock, HEADERSIZE).decode())
     splitted_header = header.split(",")
     size = splitted_header[0]
     type = splitted_header[1]

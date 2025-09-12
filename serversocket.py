@@ -46,6 +46,7 @@ def get_message(socket_client):
         while True:
             received = mp.recv_information(socket_client)[1]
             if received == "" or received == "exit":
+                mp.send_text(socket_client, "Ok Exit")
                 break
             if receiver_username in connected_users:
                 if connected_users[receiver_username] == sender_username:
