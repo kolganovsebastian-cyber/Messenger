@@ -1,4 +1,5 @@
 import json
+import errors
 
 
 def get_user_info_by_id(id: str) -> list[str, str]:
@@ -9,7 +10,7 @@ def get_user_info_by_id(id: str) -> list[str, str]:
         if user["id"] == id:
             found_user = [user["username"], user["password"]]
             return found_user
-    raise ValueError("User Not Found")
+    raise errors.UserNotFoundError(f"User id: {id} Not Found")
 
 
 def get_id_by_username(username: str) -> str:
@@ -19,7 +20,7 @@ def get_id_by_username(username: str) -> str:
     for user in users_list:
         if user["username"] == username:
             return user["id"]
-    raise ValueError("User Not Found")
+    raise errors.UserNotFoundError(f"User {username} Not Found")
 
 
 def authenticate(username, password):
@@ -111,4 +112,4 @@ def get_message_by_id(id):
     for message in messages:
         if id == message["id"]:
             return message
-    raise IndexError("Message Not Found")
+    raise errors.MessageNotFoundError(f"Message id: {id} Not Found")
