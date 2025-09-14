@@ -15,10 +15,17 @@ def receive_messages():
 
 
 def send_user_to_chat(socket):
-    all_connectable_users = mp.recv_information(socket)[1]
-    print(all_connectable_users)
-    chat_request = input("With Which Person Do You Want To Talk?")
-    mp.send_text(socket, chat_request)
+    while True:
+        all_connectable_users = mp.recv_information(socket)[1]
+        print(all_connectable_users)
+        chat_request = input("With Which Person Do You Want To Talk?")
+        mp.send_text(socket, chat_request)
+        received = mp.recv_information(socket)
+        if received[0] == "ERR":
+            print("invalid user")
+        else:
+            return received[1]
+
 
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -54,8 +61,7 @@ for a in range(1, 4):
         file.close()
         break
 while True:
-    send_user_to_chat(socket)
-    history = mp.recv_information(socket)[1]
+    history = send_user_to_chat(socket)
     print(history)
 
     thread = threading.Thread(target=receive_messages)

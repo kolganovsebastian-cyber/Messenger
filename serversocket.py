@@ -3,6 +3,7 @@ import threading
 import dbhelpers
 import datetime
 import messaging_protocol as mp
+import errors
 
 
 def connect_users(socket_client, sender_username):
@@ -41,8 +42,13 @@ def get_message(socket_client):
     if sender_username is None:
         return None
     while True:
-        receiver_username = connect_users(socket_client, sender_username)
-        send_history(socket_client, sender_username, receiver_username)
+        while True:
+            receiver_username = connect_users(socket_client, sender_username)
+            try:
+                send_history(socket_client, sender_username, receiver_username)
+                break
+            except errors.UserNotFoundError:
+                mp.send_error(socket_client, "UserNotFoundError")
         while True:
             received = mp.recv_information(socket_client)[1]
             if received == "" or received == "exit":
