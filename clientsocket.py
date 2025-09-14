@@ -21,7 +21,7 @@ def send_user_to_chat(socket):
         chat_request = input("With Which Person Do You Want To Talk?")
         mp.send_text(socket, chat_request)
         received = mp.recv_information(socket)
-        if received[0] == "ERR":
+        if received[1] == "UserNotFoundError":
             print("invalid user")
         else:
             return received[1]
@@ -29,7 +29,7 @@ def send_user_to_chat(socket):
 
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.connect(("62.60.178.229", 8300))
+socket.connect(("62.60.178.229", 8400))
 for a in range(1, 4):
     try:
         file = open("cookies.json", "r", encoding="utf-8")

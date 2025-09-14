@@ -48,7 +48,7 @@ def get_message(socket_client):
                 send_history(socket_client, sender_username, receiver_username)
                 break
             except errors.UserNotFoundError:
-                mp.send_error(socket_client, "UserNotFoundError")
+                mp.send_text(socket_client, "UserNotFoundError")
         while True:
             received = mp.recv_information(socket_client)[1]
             if received == "" or received == "exit":
@@ -73,7 +73,7 @@ def check_client(socket_client):
 
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.bind(("0.0.0.0", 8300))
+socket.bind(("0.0.0.0", 8400))
 socket.listen()
 
 
