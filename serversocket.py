@@ -73,7 +73,7 @@ def check_client(socket_client):
 
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.bind(("0.0.0.0", 8200))
+socket.bind(("0.0.0.0", 8300))
 socket.listen()
 
 
