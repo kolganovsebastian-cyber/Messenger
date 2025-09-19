@@ -10,6 +10,8 @@ def connect_users(socket_client, sender_username):
     all_connectable_users = dbhelpers.get_usernames(sender_username)
     mp.send_text(socket_client, all_connectable_users)
     receiver_username = mp.recv_information(socket_client)[1]
+    if receiver_username == "exit":
+        return 0
     connected_users[sender_username] = receiver_username
     return receiver_username
 
@@ -44,6 +46,10 @@ def get_message(socket_client):
     while True:
         while True:
             receiver_username = connect_users(socket_client, sender_username)
+            if receiver_username == 0:
+                socket_client.close()
+                del all_clients[sender_username]
+                return 0
             try:
                 send_history(socket_client, sender_username, receiver_username)
                 break

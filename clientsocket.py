@@ -19,6 +19,10 @@ def send_user_to_chat(socket):
         all_connectable_users = mp.recv_information(socket)[1]
         print(all_connectable_users)
         chat_request = input("With Which Person Do You Want To Talk?")
+        if chat_request == "exit":
+            mp.send_text(socket, chat_request)
+            print("Goodbye, pls do not come back")
+            return 0
         mp.send_text(socket, chat_request)
         received = mp.recv_information(socket)
         if received[1] == "UserNotFoundError":
@@ -62,6 +66,8 @@ for a in range(1, 4):
         break
 while True:
     history = send_user_to_chat(socket)
+    if history == 0:
+        break
     print(history)
 
     thread = threading.Thread(target=receive_messages)
